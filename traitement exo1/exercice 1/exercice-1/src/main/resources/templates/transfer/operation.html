@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+    <title>Urgent2k|Transfer</title>
+
+    <style>
+    body {
+	    padding-top: 50px;
+    }
+
+    .special {
+	    padding-top: 50px;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/index}">Urgent2k Home</a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container special">
+
+    <h2 class="h2">Transfer Operation</h2>
+    <div>
+        <form method="post" th:action="@{/transfer/validation}" th:object="${transfer}">
+            <div class="form-group">
+                <label for="senderinput">Sender: </label><p th:text="${transfer.Sender}" id="senderinput">sender</p>
+                <input type="hidden" th:field="*{Sender}" th:value="${transfer.Sender}">
+            </div>
+            <div class="form-group">
+                <label for="receiverinput">Receiver: </label><p th:text="${transfer.Receiver}" id="receiverinput">receiver</p>
+                <input type="hidden" th:field="*{Receiver}" th:value="${transfer.Receiver}">
+            </div>
+
+            <div class="form-group">
+                <label for="amountinput">Amount To Transfer: </label>
+                <input
+                        type="number" th:field="*{Amount}" class="form-control" id="amountinput"
+                        aria-describedby="amounthelp" placeholder="1000" required> <small
+                    id="amounthelp" class="form-text text-muted">Enter the amount to transfer then next you will decide the currency of the amount between yours and your receiver's </small>
+            </div>
+            <div class="form-group">
+                <label for="currencyinput">Currency: </label>
+                <select th:field="*{Currency}" id="currencyinput" required>
+                    <option th:value="${sendercurrencyformat}" th:text="${sendercurrencyformat}">sendercurrency</option>
+                    <option th:value="${receivercurrencyformat}" th:text="${receivercurrencyformat}">receivercurrency</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="messageinput">Small message for the receiver: </label>
+                <input
+                        type="text" th:field="*{Message}" class="form-control" id="messageinput"
+                        placeholder="Optional message for receiver" >
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
